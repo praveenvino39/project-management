@@ -15,10 +15,10 @@ import { Ticket, TicketSchema } from './schema/tickets.schema';
     JwtModule.register({ secret: 'SOMESECRET' }),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
-      { name: Ticket.name, schema: TicketSchema },
-
       { name: Project.name, schema: ProjectSchema },
+      { name: Ticket.name, schema: TicketSchema },
     ]),
   ],
+  exports: [ProjectsService],
 })
 export class ProjectsModule {}

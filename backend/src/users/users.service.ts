@@ -29,12 +29,8 @@ export class UsersService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const user = await this.findUserByUsername(loginUserDto.username, {
-      removePassword: false,
-    });
+    const user = await this.findUserByUsername(loginUserDto.username);
     if (user) {
-      console.log(loginUserDto.password, user.password);
-
       const passwordMatched = await matchPassword({
         password: loginUserDto.password,
         hash: user.password,
@@ -51,9 +47,8 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  async findUserByUsername(username: string, { removePassword = false }) {
+  async findUserByUsername(username: string) {
     const user = await this.userModel.findOne({ username });
-    if (removePassword) user.password = undefined;
     return user;
   }
 
