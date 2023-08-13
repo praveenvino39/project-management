@@ -18,6 +18,24 @@ export class ProjectsService {
     return createdProject;
   }
 
+  async addCollaborators(projectId: string, users: string[]) {
+    const project = await this.projectModel.findByIdAndUpdate(
+      projectId,
+      { $addToSet: { collaborators: { $each: users } } },
+      { new: true },
+    );
+    return project;
+  }
+
+  async removeCollaborators(projectId: string, users: string[]) {
+    const project = await this.projectModel.findByIdAndUpdate(
+      projectId,
+      { $pull: { collaborators: { $in: users } } },
+      { new: true },
+    );
+    return project;
+  }
+
   findAll() {
     return this.projectModel.find().populate('createdBy');
   }

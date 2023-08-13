@@ -5,11 +5,15 @@ import {
   Body,
   UseGuards,
   Request,
+  Param,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UserAuthGuard } from 'src/users/users.guard';
 import { UsersService } from 'src/users/users.service';
+import { AssignUsersDto } from './dto/assign-users.dto';
 
 @Controller('projects')
 export class ProjectsController {
@@ -29,6 +33,30 @@ export class ProjectsController {
     );
     createProjectDto.createdBy = user.id;
     return this.projectsService.create(createProjectDto);
+  }
+
+  @Patch('/add-users/:projectId')
+  @UseGuards(UserAuthGuard)
+  async assignUsersToProject(
+    @Param('projectId') projectId: string,
+    @Body() assignUsersDto: AssignUsersDto,
+  ) {
+    return this.projectsService.addCollaborators(
+      projectId,
+      assignUsersDto.users,
+    );
+  }
+
+  @Patch('/remove-users/:projectId')
+  @UseGuards(UserAuthGuard)
+  async unAssignUsersToProject(
+    @Param('projectId') projectId: string,
+    @Body() assignUsersDto: AssignUsersDto,
+  ) {
+    return this.projectsService.removeCollaborators(
+      projectId,
+      assignUsersDto.users,
+    );
   }
 
   @Get()
