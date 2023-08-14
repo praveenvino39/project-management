@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Input } from 'antd'
 import React, { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { useNavigate, useNavigation } from 'react-router-dom'
+import { Link, useNavigate, useNavigation } from 'react-router-dom'
 
 function LoginPage() {
     const { loginUser } = useAuth()
@@ -24,7 +24,7 @@ function LoginPage() {
                 <Input value={password} onChange={(event) => setPassword(event.target.value)} size="large" type='password' placeholder="Password" prefix={<LockOutlined />} className='mt-4' />
                 <Button htmlType='submit' className='mt-4'>Login</Button>
             </form>
-
+            <p className='mt-5'>Don't have account, <Link to={'/register'}>Click here to create One</Link></p>
         </div>
     )
 }

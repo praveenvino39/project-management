@@ -13,8 +13,7 @@ function RegisterPage() {
     const registerUserHandler = async (event: any) => {
         event.preventDefault()
         await registerUser(username, password)
-
-        navigate('/')
+        navigate('/login')
     }
 
     return (

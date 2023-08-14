@@ -41,6 +41,8 @@ function ProjectList() {
                             </Col>)
                         }
                     </Row>
+                    {projects.length === 0 && <p className='text-sm mt-5'>No project available, Please add one</p>}
+
                 </div>
             </div>
         </div>
