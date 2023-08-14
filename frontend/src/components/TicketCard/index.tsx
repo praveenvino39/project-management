@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Avatar, Button, Card, Col, Divider, Modal, Select, Tooltip, Typography } from 'antd'
 import HighPriority from '../../assets/vector/high.svg'
 import LowPriority from '../../assets/vector/low.svg'
@@ -8,10 +8,16 @@ import useProject from '../../hooks/useProject'
 var randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
 const { Paragraph } = Typography
-function TicketCard({ ticket, refreshTicket }: any) {
+
+type TicketCardType = {
+    ticket: Ticket,
+    refreshTicket: () => void
+}
+
+const TicketCard: FC<TicketCardType> = ({ ticket, refreshTicket }) => {
     const { assignUserToTicket, unAssignUserToTicket, getProjectDetailById } = useProject()
     const [showTicketDetail, setShowTicketDetail] = useState(false)
-    const [project, setProject] = useState<any>({})
+    const [project, setProject] = useState<Project | null>()
 
     useEffect(() => {
         getProjectDetail()
@@ -31,8 +37,8 @@ function TicketCard({ ticket, refreshTicket }: any) {
         setProject(await getProjectDetailById(ticket.project))
     }
 
-    const getUsersOptions = () => {
-        if (project?.collaborators?.length > 0) {
+    const getUsersOptions = (): any => {
+        if ((project?.collaborators?.length || 0) > 0) {
             return project?.collaborators.map((collaborator: any) => {
                 return { value: collaborator._id, label: collaborator.username }
             })
@@ -57,7 +63,7 @@ function TicketCard({ ticket, refreshTicket }: any) {
                         }
                     </Tooltip>
                     {ticket.assignedTo ?
-                        <Tooltip title={`Assigned to ${ticket.assignedTo.username}`}>
+                        <Tooltip title={`Assigned to ${ticket.assignedTo._id}`}>
                             <Avatar style={{ background: `#${randomColor}` }} >
                                 {ticket.assignedTo.username.substring(0, 2).toUpperCase()}
                             </Avatar>

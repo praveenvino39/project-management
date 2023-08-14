@@ -7,12 +7,12 @@ function useAuth() {
     const { setAuthToken, getAuthToken } = useStorage()
 
     const loginUser = async (username: string, password: string) => {
-        const { data } = await axios.post("http://localhost:3000/users/login", { username, password })
+        const { data } = await axios.post<string>("http://localhost:3000/users/login", { username, password })
         setAuthToken(data)
     }
 
     const getAllUsers = async () => {
-        const { data } = await axios.get("http://localhost:3000/users/all", {
+        const { data } = await axios.get<User>("http://localhost:3000/users/all", {
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`
             }
@@ -22,7 +22,7 @@ function useAuth() {
 
     const registerUser = async (username: string, password: string) => {
         try {
-            const { data } = await axios.post("http://localhost:3000/users", { username, password })
+            const { data } = await axios.post<User>("http://localhost:3000/users", { username, password })
             console.log(data)
         } catch (error) {
             throw error

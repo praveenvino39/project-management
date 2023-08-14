@@ -12,7 +12,7 @@ import AddTicketModal from '../AddTicketModal';
 function Tickets() {
     const { state: project } = useLocation();
     const { getTicketsByProjectId } = useProject()
-    const [tickets, setTickets] = useState([])
+    const [tickets, setTickets] = useState<Ticket[]>([])
 
     useEffect(() => {
         getTickets()
@@ -31,8 +31,8 @@ function Tickets() {
                 </div>
             </h1>
             <Row gutter={16} className='items-stretch'>
-                {tickets.map((ticket: any) =>
-                    <TicketCard refreshTicket={getTickets} key={ticket._id} ticket={ticket} project={project} />
+                {tickets.map((ticket) =>
+                    <TicketCard refreshTicket={getTickets} key={ticket._id} ticket={ticket} />
                 )
                 }
             </Row>

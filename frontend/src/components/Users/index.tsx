@@ -9,7 +9,7 @@ import AddUserModal from '../AddUserModal';
 function Users({ projecId }: any) {
     const { state: project } = useLocation();
     const { getProjectDetailById } = useProject()
-    const [projectUsers, setProjectUsers] = useState<any>([])
+    const [projectUsers, setProjectUsers] = useState<User[]>([])
 
     useEffect(() => {
         getDetails()
@@ -29,7 +29,7 @@ function Users({ projecId }: any) {
                 </div>
             </h1>
             <Row gutter={16} className='items-stretch'>
-                {projectUsers.map((user: any) =>
+                {projectUsers.map((user) =>
                     <Col key={user._id} span={8}>
                         <Card headStyle={{ display: 'none' }} onClick={() => { }} className='cursor-pointer mt-5' title={user.username} bordered={false}>
                             <div className='flex mt-5 justify-center gap-3 items-center min-h-[0px]'>
