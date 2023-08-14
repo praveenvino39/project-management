@@ -8,9 +8,9 @@ import LoginPage from './pages/Login'
 import AuthProvider from './provider/AuthProvider'
 import RegisterPage from './pages/Register'
 import ProjectScreen from './pages/Project'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className="App">

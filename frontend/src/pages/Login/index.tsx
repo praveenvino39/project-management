@@ -12,16 +12,18 @@ function LoginPage() {
 
     const loginHandler = async (event: any) => {
         event.preventDefault()
-        await loginUser(username, password)
-        navigate('/')
+        const result = await loginUser(username, password)
+        if(result){
+            navigate('/')
+        }
     }
 
     return (
         <div className='px-52'>
             <form onSubmit={loginHandler}>
                 <h1 className='text-3xl mt-4'>Login</h1>
-                <Input value={username} onChange={(event) => setUsername(event.target.value)} size="large" placeholder="Username" prefix={<UserOutlined />} className='mt-4' />
-                <Input value={password} onChange={(event) => setPassword(event.target.value)} size="large" type='password' placeholder="Password" prefix={<LockOutlined />} className='mt-4' />
+                <Input required value={username} onChange={(event) => setUsername(event.target.value)} size="large" placeholder="Username" prefix={<UserOutlined />} className='mt-4' />
+                <Input required value={password} onChange={(event) => setPassword(event.target.value)} size="large" type='password' placeholder="Password" prefix={<LockOutlined />} className='mt-4' />
                 <Button htmlType='submit' className='mt-4'>Login</Button>
             </form>
             <p className='mt-5'>Don't have account, <Link to={'/register'}>Click here to create One</Link></p>

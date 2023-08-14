@@ -5,6 +5,13 @@ type User = {
     lastName?: string
 }
 
+type NetworkResponse<T> = {
+    message:string,
+    data: T,
+    status: number,
+    error?: string
+}
+
 type Project = {
     _id: string,
     name: string,
