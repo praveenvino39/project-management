@@ -35,6 +35,12 @@ export class ProjectsController {
     return this.projectsService.create(createProjectDto);
   }
 
+  @Get('/:projectId')
+  @UseGuards(UserAuthGuard)
+  async getProjectDetails(@Param('projectId') projectId) {
+    return this.projectsService.findProjectById(projectId);
+  }
+
   @Patch('/add-users/:projectId')
   @UseGuards(UserAuthGuard)
   async assignUsersToProject(

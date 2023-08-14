@@ -44,7 +44,7 @@ export class UsersService {
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userModel.find();
   }
 
   async findUserByUsername(username: string) {

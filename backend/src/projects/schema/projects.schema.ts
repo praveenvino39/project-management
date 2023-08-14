@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { User, UserSchema } from 'src/users/schema/user.schema';
 import { Type } from 'class-transformer';
-import { Ticket } from './tickets.schema';
+import { Ticket } from 'src/tickets/schema/tickets.schema';
 
 export type ProjectDocument = HydratedDocument<Project>;
 const { ObjectId } = SchemaTypes;
@@ -24,7 +24,7 @@ export class Project {
   @Type(() => Array<Ticket>)
   tickets: string[];
 
-  @Prop({ type: Array<typeof ObjectId>, ref: 'User', default: [] })
+  @Prop({ type: [ObjectId], ref: 'User', default: [] })
   @Type(() => Array<User>)
   collaborators: User[];
 

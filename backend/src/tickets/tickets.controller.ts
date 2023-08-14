@@ -24,7 +24,7 @@ export class TicketsController {
     @Request() request: Request,
     @Body() createTicketDto: CreateTicketDto,
   ) {
-    const user = request['user'].id;
+    const user = request['user']._id;
     return this.ticketsService.createTicket(createTicketDto, user);
   }
 
@@ -45,6 +45,6 @@ export class TicketsController {
 
   @Get()
   getAllTickets() {
-    return this.ticketsService.findAll();
+    return this.ticketsService.findAll().populate('assignedTo');
   }
 }

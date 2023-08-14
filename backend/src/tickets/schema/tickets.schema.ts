@@ -15,6 +15,12 @@ export class Ticket {
   @Type(() => User)
   assignedTo: string;
 
+  @Prop()
+  description: string;
+
+  @Prop({ default: 'low' })
+  priority: 'low' | 'medium' | 'high';
+
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Project' })
   @Type(() => Project)
   project: Project;

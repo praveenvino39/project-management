@@ -38,4 +38,10 @@ export class UsersController {
   getDashboard(@Request() request) {
     return request['user'];
   }
+
+  @Get('/all')
+  @UseGuards(UserAuthGuard)
+  getAllUsers() {
+    return this.usersService.findAll();
+  }
 }

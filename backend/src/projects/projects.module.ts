@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { User, UserSchema } from 'src/users/schema/user.schema';
-import { Ticket, TicketSchema } from './schema/tickets.schema';
+import { Ticket, TicketSchema } from 'src/tickets/schema/tickets.schema';
 
 @Module({
   controllers: [ProjectsController],

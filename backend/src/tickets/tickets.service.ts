@@ -20,6 +20,7 @@ export class TicketsService {
         createTicketDto.project,
       );
       if (project) {
+        console.log(createTicketDto);
         const createdTicket = await this.ticketModel.create(createTicketDto);
         await createdTicket.save();
         await project.updateOne({ $push: { tickets: createdTicket.id } });
@@ -105,6 +106,6 @@ export class TicketsService {
   }
 
   findAll() {
-    return this.ticketModel.find();
+    return this.ticketModel.find().populate('assignedTo');
   }
 }

@@ -3,7 +3,7 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Project } from './schema/projects.schema';
 import { Model } from 'mongoose';
-import { Ticket } from './schema/tickets.schema';
+import { Ticket } from 'src/tickets/schema/tickets.schema';
 
 @Injectable()
 export class ProjectsService {
@@ -19,11 +19,9 @@ export class ProjectsService {
   }
 
   async addCollaborators(projectId: string, users: string[]) {
-    const project = await this.projectModel.findByIdAndUpdate(
-      projectId,
-      { $addToSet: { collaborators: { $each: users } } },
-      { new: true },
-    );
+    const project = await this.projectModel.findByIdAndUpdate(projectId, {
+      $set: { collaborators: users },
+    });
     return project;
   }
 
@@ -37,11 +35,13 @@ export class ProjectsService {
   }
 
   findAll() {
-    return this.projectModel.find().populate('createdBy');
+    return this.projectModel.find().populate('createdBy collaborators');
   }
 
   findProjectById(projectId: string) {
-    const project = this.projectModel.findOne({ _id: projectId });
+    const project = this.projectModel
+      .findOne({ _id: projectId })
+      .populate('collaborators');
     return project;
   }
 }
