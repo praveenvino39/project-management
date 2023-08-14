@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
@@ -24,32 +24,74 @@ export class UsersService {
       const createdUser = await user.save();
       return createdUser;
     } catch (error) {
-      return error;
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: error.toString(),
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const user = await this.findUserByUsername(loginUserDto.username);
-    if (user) {
-      const passwordMatched = await matchPassword({
-        password: loginUserDto.password,
-        hash: user.password,
-      });
-      if (passwordMatched) {
-        user.password = undefined;
-        return this.jwtService.signAsync(user.toJSON(), { expiresIn: '30d' });
+    try {
+      const user = await this.findUserByUsername(loginUserDto.username);
+      if (user) {
+        const passwordMatched = await matchPassword({
+          password: loginUserDto.password,
+          hash: user.password,
+        });
+        if (passwordMatched) {
+          user.password = undefined;
+          return this.jwtService.signAsync(user.toJSON(), { expiresIn: '30d' });
+        }
       }
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: error.toString(),
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
-    return null;
+    throw new HttpException(
+      {
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid username or password',
+      },
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
-  findAll() {
-    return this.userModel.find();
+  async findAll() {
+    try {
+      return await this.userModel.find();
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: error.toString(),
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async findUserByUsername(username: string) {
-    const user = await this.userModel.findOne({ username });
-    return user;
+    try {
+      const user = await this.userModel.findOne({ username });
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: error.toString(),
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   remove(id: number) {

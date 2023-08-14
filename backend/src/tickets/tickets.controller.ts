@@ -9,10 +9,12 @@ import {
   Request,
   UseGuards,
   Query,
+  HttpStatus,
 } from '@nestjs/common';
 import { TicketsService } from './tickets.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UserAuthGuard } from 'src/users/users.guard';
+import { sendReponse } from 'src/utils';
 
 @Controller('tickets')
 export class TicketsController {
@@ -25,7 +27,11 @@ export class TicketsController {
     @Body() createTicketDto: CreateTicketDto,
   ) {
     const user = request['user']._id;
-    return this.ticketsService.createTicket(createTicketDto, user);
+    return sendReponse({
+      message: 'New ticket created',
+      data: await this.ticketsService.createTicket(createTicketDto, user),
+      status: HttpStatus.CREATED,
+    });
   }
 
   @Patch('/:ticketId')
@@ -34,7 +40,11 @@ export class TicketsController {
     @Param('ticketId') ticketId: string,
     @Query('user') user: string,
   ) {
-    return this.ticketsService.assignTicket(ticketId, user);
+    return sendReponse({
+      message: 'New ticket created',
+      data: await this.ticketsService.assignTicket(ticketId, user),
+      status: HttpStatus.CREATED,
+    });
   }
 
   @Delete('/:ticketId')
