@@ -19,7 +19,7 @@ function Users({ projecId }: any) {
 
     const getDetails = async () => {
         const details = await getProjectDetailById(project._id)
-        setProjectUsers(details.collaborators)
+        setProjectUsers(details.collaborators ?? [])
         setLoading(false)
     }
     return (

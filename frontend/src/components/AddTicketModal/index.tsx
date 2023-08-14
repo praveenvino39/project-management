@@ -13,12 +13,14 @@ function AddTicketModal({ projecId, refreshTicket }: any) {
     const addTicketHandler = async (event: any) => {
         try {
             event.preventDefault()
-            await createTicket(projecId, title, description, priority)
-            settitle("")
-            setDescription("")
-            setPriority("low")
-            await refreshTicket()
-            setShowAddTicketModal(false)
+            const result = await createTicket(projecId, title, description, priority)
+            if (result) {
+                settitle("")
+                setDescription("")
+                setPriority("low")
+                await refreshTicket()
+                setShowAddTicketModal(false)
+            }
         } catch (error) {
             alert("Error")
         }

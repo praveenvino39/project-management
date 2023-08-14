@@ -24,12 +24,18 @@ function useAuth() {
     }
 
     const getAllUsers = async () => {
-        const { data } = await axios.get<User>("http://localhost:3000/users/all", {
+        try {
+            const { data } = await axios.get<NetworkResponse<User[]>>("http://localhost:3000/users/all", {
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`
             }
         })
-        return data
+        const {data: users} = data
+        return users
+        } catch (error) {
+            alert(error)
+        }
+        
     }
 
     const registerUser = async (username: string, password: string) => {

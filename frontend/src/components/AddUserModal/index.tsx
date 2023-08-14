@@ -21,13 +21,6 @@ function AddUserModal({ projecId, refreshUser, projectUsers }: any) {
         setusers(users)
     }
 
-    function loadExisingUser() {
-        const existingUserId = projectUsers.map((user: any) => {
-            return user._id
-        })
-        console.log(projectUsers)
-        setselectedUser(() => [...existingUserId])
-    }
     const addTicketHandler = async (event: any) => {
         try {
             event.preventDefault()

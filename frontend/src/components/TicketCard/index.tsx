@@ -30,7 +30,7 @@ const TicketCard: FC<TicketCardType> = ({ ticket, refreshTicket }) => {
 
     const unAssignTicketToUser = async () => {
         await unAssignUserToTicket(ticket._id)
-        await refreshTicket()
+        refreshTicket()
     }
 
     const getProjectDetail = async () => {

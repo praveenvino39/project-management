@@ -14,10 +14,12 @@ function AddProjectModal({ refreshProjects }: any) {
     const addTicketHandler = async (event: any) => {
         try {
             event.preventDefault()
-            await createProject(title)
-            settitle("")
-            await refreshProjects()
-            setShowAddProjectModal(false)
+            const result = await createProject(title)
+            if (result) {
+                settitle("")
+                await refreshProjects()
+                setShowAddProjectModal(false)
+            }
         } catch (error) {
             alert("Error")
         }
@@ -38,8 +40,7 @@ function AddProjectModal({ refreshProjects }: any) {
                 onCancel={() => setShowAddProjectModal(false)}
             >
                 <form onSubmit={addTicketHandler}>
-                    <Input value={title} onChange={(event) => settitle(event.target.value)} size="large" placeholder="Title" className='mt-4' />
-
+                    <Input required value={title} onChange={(event) => settitle(event.target.value)} size="large" placeholder="Title" className='mt-4' />
                     <div className='flex gap-5 justify-end'>
                         <Button htmlType="submit" className='mt-5'>Add</Button>
                         <Button onClick={() => setShowAddProjectModal(false)} className='mt-5'>Cancel</Button>

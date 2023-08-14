@@ -26,13 +26,14 @@ function useProject() {
     }
 
     const getProjectDetailById = async (projectId: string) => {
-        const { data } = await axios.get<Project>(`http://localhost:3000/projects/${projectId}`, {
+        const { data } = await axios.get<NetworkResponse<Project>>(`http://localhost:3000/projects/${projectId}`, {
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`
             }
         })
-        console.log(data)
-        return data
+        const { data: project } = data
+        console.log(project)
+        return project
     }
 
     const assignUserToTicket = async (ticketId: string, userId: string) => {
@@ -46,40 +47,61 @@ function useProject() {
     }
 
     const unAssignUserToTicket = async (ticketId: string) => {
-        const { data } = await axios.delete<Ticket>(`http://localhost:3000/tickets/${ticketId}`, {
+        try {
+         const { data } = await axios.delete<NetworkResponse<Ticket>>(`http://localhost:3000/tickets/${ticketId}`, {
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`
             }
         })
-        console.log(data)
-        return data
+        const {data: updatedTicket } = data
+        console.log(updatedTicket)
+        return updatedTicket   
+        } catch (error) {
+            
+        }
+        
     }
 
     const createTicket = async (projectId: string, name: string, description: string, priority: string) => {
-        const { data } = await axios.post<Ticket>(`http://localhost:3000/tickets`, {
-            name,
-            description,
-            priority,
-            project: projectId
-        }, {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`
+        try {
+            const { data } = await axios.post<NetworkResponse<Ticket>>(`http://localhost:3000/tickets`, {
+                name,
+                description,
+                priority,
+                project: projectId
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${getAuthToken()}`
+                }
+            })
+            const { data: newTicket, status } = data
+            if(status === 201){
+                return true
             }
-        })
-        console.log(data)
-        return data
+            return false
+        } catch (error: any) {
+            alert(error)
+            return false
+        }
+
     }
 
     const createProject = async (name: string) => {
-        const { data } = await axios.post<Project>(`http://localhost:3000/projects`, {
-            name,
-        }, {
-            headers: {
-                'Authorization': `Bearer ${getAuthToken()}`
-            }
-        })
-        console.log(data)
-        return data
+        try {
+            const { data } = await axios.post<NetworkResponse<Project>>(`http://localhost:3000/projects`, {
+                name,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${getAuthToken()}`
+                }
+            })
+            console.log(data)
+            return true
+        } catch (error: any) {
+            alert(error.toString())
+            return false
+        }
+
     }
 
     const addUsersToProject = async (projectId: string, users: string[]) => {
