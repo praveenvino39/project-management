@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "610916bf-489d-44b4-af5e-9b395035a3f5",
+		"name": "Project management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"Benjamin\",\n    \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"pv4you\",\n    \"password\":\"praveeen\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Create Project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"GuardianWallet\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/projects",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/projects",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get project detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/projects/64d9b40d3d69cefcf9692ed6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								"64d9b40d3d69cefcf9692ed6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add collaborators to project",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"users\":  [\"64d932fb2e865502518e410e\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/projects/add-users/64d92db7c294e047e2520f8c",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								"add-users",
+								"64d92db7c294e047e2520f8c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remov collaborators from project",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"users\":  [\"64d8e1617b1ae0355ee45673\",\"64d8e1617b1ae0355ee45674\",\"64d8e1617b1ae0355ee45670\", \"64d8e1617b1ae0355ee45679\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/projects/remove-users/64d8e2d2eae1dcdb7e13af6d",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								"remove-users",
+								"64d8e2d2eae1dcdb7e13af6d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ4ZDEyMGM2ODBiZmNmOWMwNzBlNzgiLCJ1c2VybmFtZSI6InB2NHlvdSIsImZpcnN0TmFtZSI6IlByYXZlZW4iLCJsYXN0TmFtZSI6IlNyaW5pdmFzYW4iLCJfX3YiOjAsImlhdCI6MTY5MTkzMDkxOCwiZXhwIjoxNjk0NTIyOTE4fQ.g0_enjD0lfssl7VaPuvoCcP8otA93Vdyu4-DbnFPeao",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "Create ticket in project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alignment Issue Alignment Issue Alignment Issue    \",\n    \"project\": \"64d92db7c294e047e2520f8c\",\n    \"description\": \"UI issue on about page\",\n    \"priority\": \"medium\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/tickets",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tickets/64d9b40d3d69cefcf9692ed6",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tickets",
+								"64d9b40d3d69cefcf9692ed6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign user to ticket",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tickets/64d921cfb4988aac29f61f5d?user=64d8e1617b1ae0355ee45672",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tickets",
+								"64d921cfb4988aac29f61f5d"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "64d8e1617b1ae0355ee45672"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unassign user to ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tickets/64d8dc8a4ecf871c60b950b0",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tickets",
+								"64d8dc8a4ecf871c60b950b0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ4ZDEyMGM2ODBiZmNmOWMwNzBlNzgiLCJ1c2VybmFtZSI6InB2NHlvdSIsImZpcnN0TmFtZSI6IlByYXZlZW4iLCJsYXN0TmFtZSI6IlNyaW5pdmFzYW4iLCJfX3YiOjAsImlhdCI6MTY5MTkzMzY2NSwiZXhwIjoxNjk0NTI1NjY1fQ.0AefmtnX62DBlGHIu-FDUhh1zrp2_c6Bhdrzo6XC17g",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
