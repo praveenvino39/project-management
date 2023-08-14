@@ -7,12 +7,14 @@ import LowPriority from '../../assets/vector/low.svg'
 import MediumPriority from '../../assets/vector/medium.svg'
 import TicketCard from '../TicketCard';
 import AddTicketModal from '../AddTicketModal';
+import { LoadingOutlined } from '@ant-design/icons';
 
 
 function Tickets() {
     const { state: project } = useLocation();
     const { getTicketsByProjectId } = useProject()
     const [tickets, setTickets] = useState<Ticket[]>([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         getTickets()
@@ -20,6 +22,7 @@ function Tickets() {
 
     const getTickets = async () => {
         setTickets(await getTicketsByProjectId(project._id))
+        setLoading(false)
     }
     return (
         <div>
@@ -30,13 +33,14 @@ function Tickets() {
                     <AddTicketModal refreshTicket={getTickets} projecId={project._id} />
                 </div>
             </h1>
-            <Row gutter={16} className='items-stretch'>
+            {loading ? <LoadingOutlined /> : <><Row gutter={16} className='items-stretch'>
                 {tickets.map((ticket) =>
                     <TicketCard refreshTicket={getTickets} key={ticket._id} ticket={ticket} />
                 )
                 }
             </Row>
-            {tickets.length === 0 && <p className='text-sm mt-5'>No tickets available, Please add one</p>}
+                {tickets.length === 0 && <p className='text-sm mt-5'>No tickets available, Please add one</p>}</>}
+
         </div>
     )
 }

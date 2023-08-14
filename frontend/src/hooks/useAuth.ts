@@ -4,7 +4,7 @@ import useStorage from './useStorage'
 
 function useAuth() {
 
-    const { setAuthToken, getAuthToken } = useStorage()
+    const { setAuthToken, getAuthToken, removeToken } = useStorage()
 
     const loginUser = async (username: string, password: string) => {
         const { data } = await axios.post<string>("http://localhost:3000/users/login", { username, password })
@@ -36,11 +36,17 @@ function useAuth() {
         }
         return false
     }
+
+    const logoutUser = () => {
+        removeToken()
+        window.location.href = "/"
+    }
     return {
         loginUser,
         checkAuth,
         registerUser,
-        getAllUsers
+        getAllUsers,
+        logoutUser
     }
 }
 

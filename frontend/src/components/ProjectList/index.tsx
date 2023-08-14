@@ -3,11 +3,15 @@ import React, { useEffect, useState } from 'react'
 import useProject from '../../hooks/useProject'
 import { useNavigate } from 'react-router-dom'
 import AddProjectModal from '../AddProjectModal'
+import { LoadingOutlined } from '@ant-design/icons'
+import useAuth from '../../hooks/useAuth'
 
 function ProjectList() {
     const navigate = useNavigate()
     const { getProjectForUser } = useProject()
     const [projects, setProjects] = useState<Project[]>([])
+    const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         getProjects()
     }, [])
@@ -19,6 +23,7 @@ function ProjectList() {
     }
     const getProjects = async () => {
         setProjects(await getProjectForUser())
+        setLoading(false)
     }
     return (
         <div>
@@ -32,16 +37,19 @@ function ProjectList() {
             </h1>
             <div className='mt-3'>
                 <div className='px-5'>
-                    <Row gutter={16}>
-                        {projects.map((project) =>
-                            <Col key={project._id} onClick={() => gotoProjectHandler(project)} span={8}>
-                                <Card className='cursor-pointer mt-5' title={project.name} bordered={false}>
-                                    {project.tickets.length > 0 ? `${project.tickets.length} tickets available` : 'No tickets available'}
-                                </Card>
-                            </Col>)
-                        }
-                    </Row>
-                    {projects.length === 0 && <p className='text-sm mt-5'>No project available, Please add one</p>}
+                    {loading ? <LoadingOutlined /> : <>
+                        <Row gutter={16}>
+                            {projects.map((project) =>
+                                <Col key={project._id} onClick={() => gotoProjectHandler(project)} span={8}>
+                                    <Card className='cursor-pointer mt-5' title={project.name} bordered={false}>
+                                        {project.tickets.length > 0 ? `${project.tickets.length} tickets available` : 'No tickets available'}
+                                    </Card>
+                                </Col>)
+                            }
+                        </Row>
+                        {projects.length === 0 && <p className='text-sm mt-5'>No project available, Please add one</p>}
+
+                    </>}
 
                 </div>
             </div>

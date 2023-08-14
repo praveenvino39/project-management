@@ -63,7 +63,7 @@ const TicketCard: FC<TicketCardType> = ({ ticket, refreshTicket }) => {
                         }
                     </Tooltip>
                     {ticket.assignedTo ?
-                        <Tooltip title={`Assigned to ${ticket.assignedTo._id}`}>
+                        <Tooltip title={`Assigned to ${ticket.assignedTo.username}`}>
                             <Avatar style={{ background: `#${randomColor}` }} >
                                 {ticket.assignedTo.username.substring(0, 2).toUpperCase()}
                             </Avatar>

@@ -9,9 +9,13 @@ function useStorage() {
     const getAuthToken = () => {
         return localStorage.getItem("TOKEN")
     }
+    const removeToken = () => {
+        return localStorage.removeItem("TOKEN")
+    }
     return {
         setAuthToken,
-        getAuthToken
+        getAuthToken,
+        removeToken
     }
 }
 
