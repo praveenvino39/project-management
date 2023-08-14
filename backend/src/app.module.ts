@@ -11,7 +11,9 @@ import { TicketsModule } from './tickets/tickets.module';
   imports: [
     UsersModule,
     JwtModule.register({ secret: 'SOMESECRET' }),
-    MongooseModule.forRoot('mongodb://localhost:27017/project-management'),
+    MongooseModule.forRoot(
+      'mongodb+srv://praveensrinivasan12:pv4you39@cluster0.yvlub7c.mongodb.net/?retryWrites=true&w=majority',
+    ),
     ProjectsModule,
     TicketsModule,
   ],

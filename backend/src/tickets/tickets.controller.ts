@@ -43,8 +43,8 @@ export class TicketsController {
     return this.ticketsService.unAssignTicket(ticketId);
   }
 
-  @Get()
-  getAllTickets() {
-    return this.ticketsService.findAll().populate('assignedTo');
+  @Get('/:projectId')
+  getAllTickets(@Param('projectId') projectId: string) {
+    return this.ticketsService.findAll(projectId).populate('assignedTo');
   }
 }

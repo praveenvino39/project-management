@@ -105,7 +105,7 @@ export class TicketsService {
     }
   }
 
-  findAll() {
-    return this.ticketModel.find().populate('assignedTo');
+  findAll(projectId: string) {
+    return this.ticketModel.find({ project: projectId }).populate('assignedTo');
   }
 }
