@@ -40,6 +40,7 @@ function Users({ projecId }: any) {
                 )
                 }
             </Row>
+            {projectUsers.length === 0 && <p className='text-sm mt-5'>No users available, Please add one</p>}
         </div>
     )
 }

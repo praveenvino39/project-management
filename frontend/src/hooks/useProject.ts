@@ -16,7 +16,7 @@ function useProject() {
 
 
     const getTicketsByProjectId = async (projectId: string) => {
-        const { data } = await axios.get("http://localhost:3000/tickets", {
+        const { data } = await axios.get(`http://localhost:3000/tickets/${[projectId]}`, {
             headers: {
                 'Authorization': `Bearer ${getAuthToken()}`
             }
@@ -70,6 +70,18 @@ function useProject() {
         return data
     }
 
+    const createProject = async (name: string) => {
+        const { data } = await axios.post(`http://localhost:3000/projects`, {
+            name,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${getAuthToken()}`
+            }
+        })
+        console.log(data)
+        return data
+    }
+
     const addUsersToProject = async (projectId: string, users: string[]) => {
         const { data } = await axios.patch(`http://localhost:3000/projects/add-users/${projectId}`, {
             users
@@ -88,7 +100,8 @@ function useProject() {
         unAssignUserToTicket,
         getProjectDetailById,
         createTicket,
-        addUsersToProject
+        addUsersToProject,
+        createProject
     }
 }
 

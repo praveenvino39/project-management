@@ -53,7 +53,7 @@ function AddUserModal({ projecId, refreshUser, projectUsers }: any) {
     }
     return (
         <div>
-            <Button onClick={() => setShowAddUserModal(true)}>Add</Button>
+            <Button onClick={() => setShowAddUserModal(true)}>Add User</Button>
             <Modal
                 title={'Add Users'}
                 open={showAddUserModel}

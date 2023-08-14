@@ -30,19 +30,24 @@ interface SideNavProps {
 export const SideNav: FC<SideNavProps> = ({ onClick }) => {
   const [current, setCurrent] = useState('mail');
   const { state } = useLocation()
+  const navigate = useNavigate()
   const items: MenuProps['items'] = [
+    getItem("My Projects", 'projects', null,),
     getItem("Project dashboard", 'sub1', <ProjectOutlined />, [
       getItem(state.name, 'g1', null, [getItem('Tickets', 'tickets'), getItem('Users', 'users')], 'group'),
     ]),
   ]
   const onClickKey: MenuProps['onClick'] = (e) => {
+    if (e.key === "projects") {
+      return navigate("/")
+    }
     onClick(e.key as any)
   }
   return (
     <>
       <Menu
         onClick={onClickKey}
-        defaultSelectedKeys={['']}
+        defaultSelectedKeys={['tickets']}
         defaultOpenKeys={['sub1']}
         mode="inline"
         style={{

@@ -36,6 +36,7 @@ function Tickets() {
                 )
                 }
             </Row>
+            {tickets.length === 0 && <p className='text-sm mt-5'>No tickets available, Please add one</p>}
         </div>
     )
 }

@@ -26,7 +26,7 @@ function AddTicketModal({ projecId, refreshTicket }: any) {
     }
     return (
         <div>
-            <Button onClick={() => setShowAddTicketModal(true)}>Add</Button>
+            <Button onClick={() => setShowAddTicketModal(true)}>Add Ticket</Button>
             <Modal
                 title={'Add Ticket'}
                 open={showAddTicketModal}
